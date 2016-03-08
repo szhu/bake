@@ -1,0 +1,7 @@
+#!/bin/bash
+
+LIB="$(echo "${0}" | xargs dirname | xargs dirname)/lib"
+NODE_MODULES="$(echo "${0}" | xargs dirname | xargs dirname)/node_modules"
+export NODE_PATH="${NODE_PATH}:${LIB}:${NODE_MODULES}"
+
+exec lsc ./Bakefile "${@}"

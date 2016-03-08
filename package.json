@@ -1,0 +1,28 @@
+{
+  "name": "bake",
+  "version": "0.0.1",
+  "description": "Prepares delicious goodness.",
+  "main": "bake.ls",
+  "dependencies": {
+    "livescript": "^1.4.0",
+    "minimist": "^1.2.0",
+    "prelude-ls": "^1.1.2"
+  },
+  "devDependencies": {},
+  "bin": {
+    "bake": "./bin/bake"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szhu/bake.git"
+  },
+  "author": "Sean Zhu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/szhu/bake/issues"
+  },
+  "homepage": "https://github.com/szhu/bake#readme"
+}
