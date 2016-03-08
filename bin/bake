@@ -1,7 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env node
 
-LIB="$(echo "${0}" | xargs dirname | xargs dirname)/lib"
-NODE_MODULES="$(echo "${0}" | xargs dirname | xargs dirname)/node_modules"
-export NODE_PATH="${NODE_PATH}:${LIB}:${NODE_MODULES}"
+var appModulePath       = require('app-module-path')
+var fs                  = require('fs');
+var lsc                 = require('livescript/lib/command');
+var path                = require('path');
 
-exec lsc ./Bakefile "${@}"
+var BAKE_ROOT           = path.dirname(path.dirname(fs.realpathSync(__filename)))
+
+appModulePath.addPath(BAKE_ROOT + '/lib');
+appModulePath.addPath(BAKE_ROOT + '/node_modules');
+
+lsc('./Bakefile')
