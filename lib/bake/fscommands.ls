@@ -7,6 +7,11 @@ to-list = (x) ->
   if typeof x is 'string' then [x] else x
 
 
+export home = (path-ext) ->
+  { homedir } = require 'os'
+  return "#{homedir()}/#{path-ext}"
+
+
 export rm = (dst) !->
   dst = to-list(dst)
 
