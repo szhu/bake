@@ -26,16 +26,28 @@ shell.with-wd = (wd, f) ->
   shell.custom-wd = undefined
 
 
-shellquote-arg = (arg) !->
+# Try to return the shortest quoted representation of the arg.
+export shellquote-arg = (arg) !->
   throw new TypeError console.dir arg if typeof arg isnt 'string'
   escape-it = (it) -> \\ + it
 
+  { homedir } = require 'os'
+  home-subs =
+    * ["#{homedir()}/", "~/"]
+    * ["#{homedir()}", "~"]
+    * ["", ""]
+
+  for [home-prefix, home-sub] in home-subs
+    if (arg.substring(0, home-prefix.length) == home-prefix)
+      arg := arg.substring(home-prefix.length)
+      break
+
   if \' in arg
-    return \" + arg.replace(/\\/g, escape-it).replace(/[$\']/g, escape-it) + \"
+    return home-sub + \" + arg.replace(/[`$\\]/g, escape-it) + \"
   else if /[^A-Za-z0-9.\-_\/]/g.test arg
-    return \' + arg + \'
+    return home-sub + \' + arg + \'
   else
-    return arg
+    return home-sub + arg
 
 
 export shellquote-args = (args) ->
